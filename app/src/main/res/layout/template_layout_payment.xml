@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/mmdd"
+        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:textColor="#FF00FF"
+        android:layout_weight="1" />
+    <TextView
+        android:id="@+id/mti"
+        android:layout_height="wrap_content"
+        android:layout_width="40dp" />
+    <TextView
+        android:id="@+id/msg_dir"
+        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:textColor="#FF00FF"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/proc"
+        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_002"
+        android:layout_height="wrap_content"
+        android:layout_width="190dp"
+        android:textColor="#FF00FF"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_003"
+        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_004"
+        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:textColor="#FF00FF"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_011"
+        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_032"
+        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:textColor="#FF00FF"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_037"
+        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_039"
+        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:textColor="#FF00FF"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_041"
+        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_063"
+        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:textColor="#FF00FF"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/de_048"
+        android:layout_height="wrap_content"
+        android:layout_width="500dp"
+        android:textStyle="bold" />
+</LinearLayout>

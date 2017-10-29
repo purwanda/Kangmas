@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Kangmas</string>
+    <string-array name="produk">
+        <item>Daftar produk</item>
+        <item>Indosat prabayar</item>
+        <item>Indosat pasca bayar</item>
+        <item>XL prabayar</item>
+        <item>XL pasca bayar</item>
+        <item>Smartfren prabayar</item>
+        <item>Smartfren pasca bayar</item>
+        <item>Axis</item>
+        <item>MNC</item>
+        <item>Telkomsel prabayar</item>
+        <item>Telkomsel pasca bayar</item>
+        <item>Esia prabayar</item>
+        <item>Esia pasca bayar</item>
+        <item>PLN</item>
+        <item>PGN</item>
+        <item>PBB</item>
+        <item>Citibank</item>
+        <item>Adira</item>
+        <item>FIF</item>
+        <item>Summit</item>
+        <item>BAF</item>
+        <item>UI</item>
+        <item>Takaful</item>
+        <item>Prudential</item>
+        <item>Garuda</item>
+    </string-array>
+</resources>

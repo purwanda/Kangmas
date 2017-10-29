@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kanjeng.kangmas.atmb_hasil">
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="427dp"
+        android:layout_marginBottom="8dp"
+        android:scrollbars="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/mmdd0"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="MMDD"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/timestamp0"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TIME"
+                    android:textColor="#FF00FF" />
+
+                <TextView
+                    android:id="@+id/mti0"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="MTI" />
+
+                <TextView
+                    android:id="@+id/msg_dir0"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="FLOW"
+                    android:textColor="#FF00FF"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/proc0"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:text="PROC"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_0020"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_002"
+                    android:textColor="#FF00FF"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_0030"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_003"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_0040"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_004"
+                    android:textColor="#FF00FF"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_0110"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_011"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_0320"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_032"
+                    android:textColor="#FF00FF"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_0370"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_037"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_0390"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_039"
+                    android:textColor="#FF00FF"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_0410"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_041"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_1000"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_100"
+                    android:textColor="#FF00FF"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_1250"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_125"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/de_1270"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_127"
+                    android:textColor="#FF00FF"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="serif"
+        android:text="HASILNYA"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.534" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="0dp"
+        android:onClick="clickAtmb"
+        android:text="KEMBALI"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+</android.support.constraint.ConstraintLayout>
