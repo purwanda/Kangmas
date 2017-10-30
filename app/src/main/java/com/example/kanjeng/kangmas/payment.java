@@ -28,6 +28,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import static org.apache.commons.codec.binary.Base64.encodeBase64;
+
 public class payment extends AppCompatActivity {
     String produk;
     Firebase fbip,fbport;
@@ -196,9 +202,11 @@ public class payment extends AppCompatActivity {
             DataOutputStream dos = new DataOutputStream(sok.getOutputStream());
 
             String msg = stringToJson("produk",produk,"tanggal",tglpay.getText().toString(),"nomor",nmrpay.getText().toString());
-            dos.writeUTF(msg);
+            String req = encrypt("Bar12345Bar12345","RandomInitVector",msg);
+            dos.writeUTF(req);
 
-            msg = dis.readUTF();
+            String respon = dis.readUTF();
+            msg = decrypt("Bar12345Bar12345","RandomInitVector",respon);
             ArrayList<HashMap<String, String>> resultList = ParseJSON(msg);
 
             Intent hasil = new Intent(this, payment_hasil.class);
@@ -212,6 +220,43 @@ public class payment extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Gagal terhubung ke server",
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    public static String encrypt(String key, String initVector, String value) {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+
+            byte[] encrypted = cipher.doFinal(value.getBytes());
+            System.out.println("encrypted string: "+ new String(encodeBase64(encrypted)));
+
+            return new String(encodeBase64(encrypted));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static String decrypt(String key, String initVector, String encrypted)
+    {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+            byte[] original = cipher.doFinal(android.util.Base64.decode(encrypted, android.util.Base64.DEFAULT));
+
+            return new String(original);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 
     private String stringToJson (String key0,String value0,String key1,String value1,String key2,String value2){

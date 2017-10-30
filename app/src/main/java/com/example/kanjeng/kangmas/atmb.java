@@ -1,5 +1,11 @@
 package com.example.kanjeng.kangmas;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+//import org.apache.commons.codec.binary.Base64;
+import android.util.Base64;
+
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.IdRes;
@@ -26,6 +32,13 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import static org.apache.commons.codec.binary.Base64.encodeBase64;
+import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 public class atmb extends AppCompatActivity {
 
@@ -100,30 +113,64 @@ public class atmb extends AppCompatActivity {
     public void kirim(View view){
         Socket sok = null;
         try {
-//            sok = new Socket("192.168.1.101",2000);
             sok = new Socket(valueip,valueport);
-            Log.d("teskoneksi","setelah konek");
             DataInputStream dis = new DataInputStream(sok.getInputStream());
             DataOutputStream dos = new DataOutputStream(sok.getOutputStream());
 
             String msg = stringToJson("produk","atmb","tanggal",txttanggal.getText().toString(),"pan",txtpan.getText().toString());
-            dos.writeUTF(msg);
+            String req = encrypt("Bar12345Bar12345","RandomInitVector",msg);
+            dos.writeUTF(req);
 
-            msg = dis.readUTF();
+            String respon = dis.readUTF();
+            msg = decrypt("Bar12345Bar12345","RandomInitVector",respon);
             ArrayList<HashMap<String, String>> resultList = ParseJSON(msg);
 
             Intent hasil = new Intent(this, atmb_hasil.class);
             hasil.putExtra("arraylist",resultList);
-            Log.d("teskoneksi","setelah dapat hasil");
             startActivity(hasil);
-            Log.d("teskoneksi","mau close");
             sok.close();
         }
         catch (IOException e) {
-            Log.d("teskoneksi","Gagal Connected to server");
             Toast.makeText(getApplicationContext(), "Gagal terhubung ke server",
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    public static String encrypt(String key, String initVector, String value) {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+
+            byte[] encrypted = cipher.doFinal(value.getBytes());
+            System.out.println("encrypted string: "+ new String(encodeBase64(encrypted)));
+
+            return new String(encodeBase64(encrypted));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static String decrypt(String key, String initVector, String encrypted)
+    {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+            byte[] original = cipher.doFinal(android.util.Base64.decode(encrypted, android.util.Base64.DEFAULT));
+
+            return new String(original);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 
     private String stringToJson (String key0,String value0,String key1,String value1,String key2,String value2){
