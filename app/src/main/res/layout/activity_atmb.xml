@@ -12,8 +12,8 @@
     <Button
         android:id="@+id/btnback"
         android:background="@drawable/ic_back"
-        android:layout_width="48dp"
-        android:layout_height="46dp"
+        android:layout_width="24dp"
+        android:layout_height="29dp"
         android:onClick="clickBack"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1"
@@ -22,8 +22,8 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="331dp"
-        android:layout_height="41dp"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
         android:fontFamily="serif"
         android:text="ATM BERSAMA"
         android:textAlignment="center"
@@ -39,8 +39,8 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintLeft_toRightOf="@+id/btnback"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="1.0" />
+        android:layout_marginLeft="0dp"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <EditText
         android:id="@+id/editTgl"

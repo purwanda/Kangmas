@@ -67,14 +67,14 @@
 
                 <TextView
                     android:id="@+id/proc0"
-                    android:layout_width="160dp"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:text="PROC"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/de_0020"
-                    android:layout_width="190dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="DE_002"
                     android:textColor="#FF00FF"
@@ -88,11 +88,18 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/de_0390"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="DE_039"
+                    android:textColor="#FF00FF"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/de_0040"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:text="DE_004"
-                    android:textColor="#FF00FF"
                     android:textStyle="bold" />
 
                 <TextView
@@ -100,6 +107,7 @@
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:text="DE_011"
+                    android:textColor="#FF00FF"
                     android:textStyle="bold" />
 
                 <TextView
@@ -107,7 +115,6 @@
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:text="DE_032"
-                    android:textColor="#FF00FF"
                     android:textStyle="bold" />
 
                 <TextView
@@ -115,13 +122,6 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:text="DE_037"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/de_0390"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="DE_039"
                     android:textColor="#FF00FF"
                     android:textStyle="bold" />
 
@@ -182,10 +182,10 @@
 
     <Button
         android:id="@+id/button2"
-        android:background="@drawable/ic_back"
-        android:layout_width="44dp"
-        android:layout_height="45dp"
+        android:layout_width="24dp"
+        android:layout_height="29dp"
         android:layout_marginLeft="0dp"
+        android:background="@drawable/ic_back"
         android:onClick="clickAtmb"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:layout_editor_absoluteY="0dp" />
