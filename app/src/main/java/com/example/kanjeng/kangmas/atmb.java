@@ -4,15 +4,14 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 //import org.apache.commons.codec.binary.Base64;
-import android.util.Base64;
+import android.support.v7.app.AlertDialog;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,17 +32,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
 import static org.apache.commons.codec.binary.Base64.encodeBase64;
-import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 public class atmb extends AppCompatActivity {
 
     TextView ip,port;
-    EditText txttanggal,txtpan;
+    EditText txttanggal,txtpan,mUser,mPassword;
     Firebase fbip,fbport;
     String valueip;
     int valueport;
@@ -65,6 +59,7 @@ public class atmb extends AppCompatActivity {
     public static final String tag_de_100 = "de_100";
     public static final String tag_de_125 = "de_125";
     public static final String tag_de_127 = "de_127";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,24 +105,49 @@ public class atmb extends AppCompatActivity {
         startActivity(main);
     }
 
-    public void kirim(View view){
+    public void loginatmb(View view) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(atmb.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_login_atmb, null);
+        mUser = (EditText)mView.findViewById(R.id.etUser);
+        mPassword = (EditText)mView.findViewById(R.id.etPassword);
+        Button mLogin = (Button)mView.findViewById(R.id.btnLogin);
+
+        mBuilder.setView(mView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
+    }
+
+    public void cekdansendatmb(View view){
+        if(!mUser.getText().toString().isEmpty() && !mPassword.getText().toString().isEmpty()){
+            kirim();
+        } else
+        {
+            Toast.makeText(atmb.this,"Lengkapi data yang kosong",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void kirim(){
         Socket sok = null;
         try {
             sok = new Socket(valueip,valueport);
             DataInputStream dis = new DataInputStream(sok.getInputStream());
             DataOutputStream dos = new DataOutputStream(sok.getOutputStream());
 
-            String msg = stringToJson("produk","atmb","tanggal",txttanggal.getText().toString(),"pan",txtpan.getText().toString());
+            String msg = stringToJson("produk","atmb","tanggal",txttanggal.getText().toString(),"pan",txtpan.getText().toString(),"user",mUser.getText().toString(),"password",mPassword.getText().toString());
             String req = encrypt("Bar12345Bar12345","RandomInitVector",msg);
             dos.writeUTF(req);
 
             String respon = dis.readUTF();
             msg = decrypt("Bar12345Bar12345","RandomInitVector",respon);
-            ArrayList<HashMap<String, String>> resultList = ParseJSON(msg);
+            Log.d("respon",msg);
+            if (msg.equals("error_1")) {Toast.makeText(getApplicationContext(), "User atau Password Anda salah", Toast.LENGTH_LONG).show();}
+            else {
+                ArrayList<HashMap<String, String>> resultList = ParseJSON(msg);
 
-            Intent hasil = new Intent(this, atmb_hasil.class);
-            hasil.putExtra("arraylist",resultList);
-            startActivity(hasil);
+                Intent hasil = new Intent(this, atmb_hasil.class);
+                hasil.putExtra("arraylist", resultList);
+                startActivity(hasil);
+            }
             sok.close();
         }
         catch (IOException e) {
@@ -173,13 +193,15 @@ public class atmb extends AppCompatActivity {
         return null;
     }
 
-    private String stringToJson (String key0,String value0,String key1,String value1,String key2,String value2){
+    private String stringToJson (String key0,String value0,String key1,String value1,String key2,String value2, String key3,String value3,String key4,String value4){
         String message;
         JSONObject json = new JSONObject();
         try {
             json.put(key0, value0);
             json.put(key1, value1);
             json.put(key2, value2);
+            json.put(key3, value3);
+            json.put(key4, value4);
         } catch (JSONException e) {
             e.printStackTrace();
         }

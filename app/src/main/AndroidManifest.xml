@@ -19,11 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".atmb" />
-        <activity android:name=".payment" />
-        <activity android:name=".setting" />
-        <activity android:name=".atmb_hasil" />
-        <activity android:name=".payment_hasil"></activity>
+        <activity android:name=".atmb"  />
+        <activity android:name=".payment"  />
+        <activity android:name=".setting"  />
+        <activity android:name=".atmb_hasil"  />
+        <activity android:name=".payment_hasil" ></activity>
     </application>
 
 </manifest>

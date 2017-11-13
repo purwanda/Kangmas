@@ -1,12 +1,15 @@
 package com.example.kanjeng.kangmas;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,7 +42,7 @@ public class payment extends AppCompatActivity {
     Firebase fbip,fbport;
     String valueip;
     int valueport;
-    EditText tglpay,nmrpay;
+    EditText tglpay,nmrpay,mUserPayment,mPasswordPayment;
 
     public static final String tag_judul = "judul";
     public static final String tag_mmdd = "mmdd";
@@ -60,6 +63,7 @@ public class payment extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
@@ -193,7 +197,27 @@ public class payment extends AppCompatActivity {
         startActivity(main);
     }
 
-    public void kirim(View view){
+    public void loginpayment(View view) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(payment.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_login_payment, null);
+        mUserPayment = (EditText)mView.findViewById(R.id.etUserPayment);
+        mPasswordPayment = (EditText)mView.findViewById(R.id.etPasswordPayment);
+        Button mLoginPayment = (Button)mView.findViewById(R.id.btnLoginPayment);
+
+        mBuilder.setView(mView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
+    }
+    public void cekdansendpayment(View view){
+        if(!mUserPayment.getText().toString().isEmpty() && !mPasswordPayment.getText().toString().isEmpty()){
+            kirimPayment();
+        } else
+        {
+            Toast.makeText(payment.this,"Lengkapi data yang kosong",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void kirimPayment(){
         Socket sok = null;
         try {
             sok = new Socket(valueip,valueport);
@@ -201,18 +225,20 @@ public class payment extends AppCompatActivity {
             DataInputStream dis = new DataInputStream(sok.getInputStream());
             DataOutputStream dos = new DataOutputStream(sok.getOutputStream());
 
-            String msg = stringToJson("produk",produk,"tanggal",tglpay.getText().toString(),"nomor",nmrpay.getText().toString());
+            String msg = stringToJson("produk",produk,"tanggal",tglpay.getText().toString(),"nomor",nmrpay.getText().toString(),"user",mUserPayment.getText().toString(),"password",mPasswordPayment.getText().toString());
             String req = encrypt("Bar12345Bar12345","RandomInitVector",msg);
             dos.writeUTF(req);
 
             String respon = dis.readUTF();
             msg = decrypt("Bar12345Bar12345","RandomInitVector",respon);
-            ArrayList<HashMap<String, String>> resultList = ParseJSON(msg);
+            if (msg.equals("error_1")) {Toast.makeText(getApplicationContext(), "User atau Password Anda salah", Toast.LENGTH_LONG).show();}
+            else {
+                ArrayList<HashMap<String, String>> resultList = ParseJSON(msg);
 
-            Intent hasil = new Intent(this, payment_hasil.class);
-            hasil.putExtra("arraylist",resultList);
-            startActivity(hasil);
-
+                Intent hasil = new Intent(this, payment_hasil.class);
+                hasil.putExtra("arraylist", resultList);
+                startActivity(hasil);
+            }
             sok.close();
         }
         catch (IOException e) {
@@ -259,13 +285,15 @@ public class payment extends AppCompatActivity {
         return null;
     }
 
-    private String stringToJson (String key0,String value0,String key1,String value1,String key2,String value2){
+    private String stringToJson (String key0,String value0,String key1,String value1,String key2,String value2, String key3,String value3,String key4,String value4){
         String message;
         JSONObject json = new JSONObject();
         try {
             json.put(key0, value0);
             json.put(key1, value1);
             json.put(key2, value2);
+            json.put(key3, value3);
+            json.put(key4, value4);
         } catch (JSONException e) {
             e.printStackTrace();
         }
