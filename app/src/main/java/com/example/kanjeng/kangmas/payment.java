@@ -198,15 +198,20 @@ public class payment extends AppCompatActivity {
     }
 
     public void loginpayment(View view) {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(payment.this);
-        View mView = getLayoutInflater().inflate(R.layout.dialog_login_payment, null);
-        mUserPayment = (EditText)mView.findViewById(R.id.etUserPayment);
-        mPasswordPayment = (EditText)mView.findViewById(R.id.etPasswordPayment);
-        Button mLoginPayment = (Button)mView.findViewById(R.id.btnLoginPayment);
+        if(!tglpay.getText().toString().isEmpty() && !nmrpay.getText().toString().isEmpty()){
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(payment.this);
+            View mView = getLayoutInflater().inflate(R.layout.dialog_login_payment, null);
+            mUserPayment = (EditText)mView.findViewById(R.id.etUserPayment);
+            mPasswordPayment = (EditText)mView.findViewById(R.id.etPasswordPayment);
+            Button mLoginPayment = (Button)mView.findViewById(R.id.btnLoginPayment);
 
-        mBuilder.setView(mView);
-        AlertDialog dialog = mBuilder.create();
-        dialog.show();
+            mBuilder.setView(mView);
+            AlertDialog dialog = mBuilder.create();
+            dialog.show();
+        } else
+        {
+            Toast.makeText(payment.this,"Lengkapi data yang kosong",Toast.LENGTH_SHORT).show();
+        }
     }
     public void cekdansendpayment(View view){
         if(!mUserPayment.getText().toString().isEmpty() && !mPasswordPayment.getText().toString().isEmpty()){

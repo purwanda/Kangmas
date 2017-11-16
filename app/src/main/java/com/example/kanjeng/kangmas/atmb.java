@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class atmb extends AppCompatActivity {
     Firebase fbip,fbport;
     String valueip;
     int valueport;
+    ProgressBar mprogressbar;
 
     public static final String tag_judul = "judul";
     public static final String tag_mmdd = "mmdd";
@@ -70,6 +72,8 @@ public class atmb extends AppCompatActivity {
 
         txttanggal = (EditText) findViewById(R.id.editTgl);
         txtpan = (EditText) findViewById(R.id.editPan);
+        mprogressbar=(ProgressBar) findViewById(R.id.progressBar);
+        mprogressbar.setVisibility(View.GONE);
 
         fbip = new Firebase("https://fir-a6630.firebaseio.com/IP");
         fbport = new Firebase("https://fir-a6630.firebaseio.com/PORT");
@@ -106,19 +110,25 @@ public class atmb extends AppCompatActivity {
     }
 
     public void loginatmb(View view) {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(atmb.this);
-        View mView = getLayoutInflater().inflate(R.layout.dialog_login_atmb, null);
-        mUser = (EditText)mView.findViewById(R.id.etUser);
-        mPassword = (EditText)mView.findViewById(R.id.etPassword);
-        Button mLogin = (Button)mView.findViewById(R.id.btnLogin);
+        if(!txttanggal.getText().toString().isEmpty() && !txtpan.getText().toString().isEmpty()){
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(atmb.this);
+            View mView = getLayoutInflater().inflate(R.layout.dialog_login_atmb, null);
+            mUser = (EditText)mView.findViewById(R.id.etUser);
+            mPassword = (EditText)mView.findViewById(R.id.etPassword);
+            Button mLogin = (Button)mView.findViewById(R.id.btnLogin);
 
-        mBuilder.setView(mView);
-        AlertDialog dialog = mBuilder.create();
-        dialog.show();
+            mBuilder.setView(mView);
+            AlertDialog dialog = mBuilder.create();
+            dialog.show();
+        } else
+        {
+            Toast.makeText(atmb.this,"Lengkapi data yang kosong",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void cekdansendatmb(View view){
         if(!mUser.getText().toString().isEmpty() && !mPassword.getText().toString().isEmpty()){
+//            mprogressbar.setVisibility(View.VISIBLE);
             kirim();
         } else
         {
